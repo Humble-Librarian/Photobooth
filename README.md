@@ -21,7 +21,7 @@ A modern web app that lets you capture fun photo strips with your webcam, apply 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/humble-librarian/photobooth.git
+   git clone https://github.com/Humble-Librarian/photobooth.git
    cd photobooth
    ```
 2. **Install dependencies**
