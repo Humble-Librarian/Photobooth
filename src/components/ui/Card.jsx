@@ -1,3 +1,6 @@
+// Card.jsx
+// Simple card component for consistent container styling.
+
 import React from 'react';
 import { cn } from '../../lib/utils';
 

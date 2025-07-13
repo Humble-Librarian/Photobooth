@@ -1,8 +1,12 @@
+// Toast.jsx
+// Toast notification component for user feedback.
+
 import React from 'react';
 import { useEffect } from 'react';
 import { cn } from '../../lib/utils';
 
 export default function Toast({ message, visible, onClose, duration = 4000 }) {
+  // Auto-dismiss the toast after the specified duration
   useEffect(() => {
     if (visible) {
       const timer = setTimeout(onClose, duration);

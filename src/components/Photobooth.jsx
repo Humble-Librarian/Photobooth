@@ -1,9 +1,13 @@
+// Photobooth.jsx
+// Main component for the photobooth experience: handles camera, filters, photo capture, and photo strip creation.
+
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import Button from './ui/Button';
 import { Tabs, TabsList, TabsTrigger } from './ui/Tabs';
 import PhotoStrip from './PhotoStrip';
 
+// List of available photo filters
 const FILTERS = [
   { key: '90s', label: '90s' },
   { key: '2000s', label: '2000s' },
@@ -14,6 +18,7 @@ const FILTERS = [
   { key: 'crosshatch', label: 'Crosshatch' },
 ];
 
+// Returns Tailwind classes for each filter effect
 function getFilterStyle(filter) {
   switch (filter) {
     case '90s':
@@ -35,11 +40,14 @@ function getFilterStyle(filter) {
   }
 }
 
+// Countdown sequence before taking a photo
 const COUNTDOWN_SEQUENCE = ['3', '2', '1', 'Smile!'];
 
 export default function Photobooth({ maxPhotos = 3, showToast }) {
+  // Refs for video and canvas elements
   const videoRef = useRef();
   const canvasRef = useRef();
+  // State for filter, camera error, captured photos, countdown, and UI
   const [filter, setFilter] = useState('90s');
   const [cameraError, setCameraError] = useState(null);
   const [photos, setPhotos] = useState([]);
@@ -47,6 +55,7 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
   const [isCounting, setIsCounting] = useState(false);
   const [showStrip, setShowStrip] = useState(false);
 
+  // Request camera access on mount
   useEffect(() => {
     let stream;
     async function getCamera() {
@@ -60,6 +69,7 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
       }
     }
     getCamera();
+    // Cleanup: stop camera when component unmounts
     return () => {
       if (stream) {
         stream.getTracks().forEach((track) => track.stop());
@@ -67,7 +77,7 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
     };
   }, []);
 
-  // Handle countdown and capture
+  // Start countdown before capturing a photo
   const startCountdown = () => {
     setIsCounting(true);
     setCountdownIdx(0);
@@ -85,6 +95,7 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
     }, 700);
   };
 
+  // Capture a photo from the video stream and save it
   const capturePhoto = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -94,16 +105,17 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
     canvas.width = w;
     canvas.height = h;
     const ctx = canvas.getContext('2d');
-    // Mirror horizontally
+    // Mirror the image horizontally
     ctx.save();
     ctx.translate(w, 0);
     ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0, w, h);
     ctx.restore();
-    // Get image data
+    // Get image data as JPEG
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
     setPhotos((prev) => {
       const next = [...prev, { dataUrl, filter }];
+      // If all photos taken, show the photo strip
       if (next.length === maxPhotos) {
         setTimeout(() => setShowStrip(true), 500);
       }
@@ -111,18 +123,22 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
     });
   };
 
+  // Can the user take another photo?
   const canShoot = !isCounting && !cameraError && photos.length < maxPhotos;
 
+  // Reset the photobooth to take new photos
   const handleReshoot = () => {
     setPhotos([]);
     setShowStrip(false);
     if (showToast) showToast('Photobooth reset!');
   };
 
+  // Show a toast when the photo strip is downloaded
   const handleDownload = () => {
     if (showToast) showToast('Photo strip downloaded!');
   };
 
+  // Render either the photo strip or the camera UI
   return showStrip ? (
     <PhotoStrip photos={photos} onReshoot={handleReshoot} onDownload={handleDownload} />
   ) : (

@@ -1,14 +1,18 @@
+// PhotoStrip.jsx
+// Component to display and download the final photo strip after photos are taken.
+
 import React from 'react';
 import { useRef } from 'react';
 import Button from './ui/Button';
 
+// Utility to get today's date as a string
 function getToday() {
   return new Date().toLocaleDateString(undefined, {
     year: 'numeric', month: 'short', day: 'numeric',
   });
 }
 
-// Map filter key to canvas filter string
+// Map filter key to canvas filter string for drawing
 function getCanvasFilterStyle(filter) {
   switch (filter) {
     case '90s':
@@ -66,7 +70,7 @@ function fisheyeCanvas(ctx, img, x, y, w, h) {
 export default function PhotoStrip({ photos, onReshoot, onDownload }) {
   const canvasRef = useRef();
 
-  // Compose the strip for download
+  // Compose the strip for download as a single image
   const handleDownload = () => {
     if (!canvasRef.current) return;
     const stripW = 400;
@@ -74,13 +78,13 @@ export default function PhotoStrip({ photos, onReshoot, onDownload }) {
     const ctx = canvasRef.current.getContext('2d');
     canvasRef.current.width = stripW;
     canvasRef.current.height = stripH;
-    // Background gradient
+    // Draw background gradient
     const grad = ctx.createLinearGradient(0, 0, stripW, stripH);
     grad.addColorStop(0, '#FFF5E1');
     grad.addColorStop(1, '#FFB6B9');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, stripW, stripH);
-    // Draw photos
+    // Draw each photo with its filter
     let loaded = 0;
     photos.forEach((photo, i) => {
       const img = new window.Image();
@@ -98,7 +102,7 @@ export default function PhotoStrip({ photos, onReshoot, onDownload }) {
           ctx.filter = 'none';
         }
         ctx.restore();
-        // White border
+        // Draw white border
         ctx.save();
         ctx.strokeStyle = '#fff';
         ctx.lineWidth = 8;
@@ -152,7 +156,7 @@ export default function PhotoStrip({ photos, onReshoot, onDownload }) {
           {getToday()}
         </div>
       </div>
-      {/* Actions */}
+      {/* Actions: Reshoot and Download */}
       <div className="flex gap-4">
         <Button variant="outline" onClick={onReshoot}>
           Reshoot

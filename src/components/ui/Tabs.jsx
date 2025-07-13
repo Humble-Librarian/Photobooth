@@ -1,7 +1,11 @@
+// Tabs.jsx
+// UI components for tabbed navigation using Radix UI Tabs.
+
 import React from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
 import { cn } from '../../lib/utils';
 
+// Tabs root component
 export function Tabs({ value, onValueChange, children, className = '' }) {
   return (
     <RadixTabs.Root value={value} onValueChange={onValueChange} className={className}>
@@ -10,6 +14,7 @@ export function Tabs({ value, onValueChange, children, className = '' }) {
   );
 }
 
+// Tabs list container
 export function TabsList({ children, className = '' }) {
   return (
     <RadixTabs.List
@@ -23,6 +28,7 @@ export function TabsList({ children, className = '' }) {
   );
 }
 
+// Individual tab trigger/button
 export function TabsTrigger({ value, children, className = '' }) {
   return (
     <RadixTabs.Trigger

@@ -1,7 +1,11 @@
+// WelcomeCurtain.jsx
+// Animated welcome screen with clouds and an 'Insert Coin' button to start the photobooth.
+
 import React from 'react';
 import { useState } from 'react';
 import Button from './ui/Button';
 
+// Cloud visual component for background animation
 function Cloud({ className = '', style = {} }) {
   return (
     <div
@@ -12,8 +16,10 @@ function Cloud({ className = '', style = {} }) {
 }
 
 export default function WelcomeCurtain({ onOpen }) {
+  // State to control curtain animation
   const [open, setOpen] = useState(false);
 
+  // Handles the 'Insert Coin' button click
   const handleInsertCoin = () => {
     setOpen(true);
     setTimeout(() => {
@@ -41,7 +47,7 @@ export default function WelcomeCurtain({ onOpen }) {
         className={`absolute top-0 right-0 h-full w-1/2 bg-primary transition-transform duration-1000 ${open ? 'translate-x-full' : 'translate-x-0'} rounded-l-3xl shadow-xl`}
         style={{ zIndex: 2 }}
       />
-      {/* Center Content */}
+      {/* Center Content: Title and Insert Coin Button */}
       <div className={`relative z-30 flex flex-col items-center justify-center transition-opacity duration-700 ${open ? 'opacity-0' : 'opacity-100'}`}>
         <h1 className="text-4xl md:text-5xl font-bold text-cloud drop-shadow mb-8 text-center">
           Welcome To <br /> Photobooth
