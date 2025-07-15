@@ -21,7 +21,7 @@ A modern web app that lets you capture fun photo strips with your webcam, apply 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/photobooth.git
+   git clone https://github.com/Humble-Librarian/photobooth.git
    cd photobooth
    ```
 2. **Install dependencies**
@@ -46,5 +46,6 @@ A modern web app that lets you capture fun photo strips with your webcam, apply 
 - 📷 You must allow camera access in your browser for the app to work.
 - 🟩 Node.js 18.x or higher is recommended.
 
-**Deployment Link**
-  - https://webphotobooth.netlify.app
+## Deployment Link
+
+- https://webphotobooth.netlify.app
