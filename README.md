@@ -47,4 +47,4 @@ A modern web app that lets you capture fun photo strips with your webcam, apply 
 - 🟩 Node.js 18.x or higher is recommended.
 
 **Deployment Link**
-  (https://webphotobooth.netlify.app)
+  - (https://webphotobooth.netlify.app)
