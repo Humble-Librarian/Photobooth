@@ -161,7 +161,7 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
           />
         )}
         {/* Photo Counter */}
-        <div className="absolute top-3 right-4 bg-cloud/80 text-primary font-bold px-4 py-1 rounded-full shadow text-lg">
+        <div className="absolute top-3 right-4 bg-white text-black font-bold px-4 py-1 rounded-full shadow text-lg">
           {photos.length + 1}/{maxPhotos}
         </div>
         {/* Countdown Overlay */}

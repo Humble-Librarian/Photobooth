@@ -34,12 +34,12 @@ export function TabsTrigger({ value, children, className = '' }) {
     <RadixTabs.Trigger
       value={value}
       className={cn(
-        // Boxed, white, rounded, shadow, transition
-        'px-6 py-2 rounded-2xl font-bold bg-white shadow-md border-2 border-transparent transition-all duration-200',
+        // Boxed, light navy blue, rounded, shadow, transition
+        'px-6 py-2 rounded-2xl font-bold bg-[#22336b] text-white shadow-md border-2 border-transparent transition-all duration-200',
         // Selected: colored border/background, text
         'data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-white',
         // Not selected: on hover/active, bg-accent and force text-white
-        'data-[state=inactive]:text-primary/70 hover:bg-accent hover:!text-white active:bg-accent active:!text-white',
+        'data-[state=inactive]:text-white hover:bg-accent hover:!text-white active:bg-accent active:!text-white',
         className
       )}
     >
