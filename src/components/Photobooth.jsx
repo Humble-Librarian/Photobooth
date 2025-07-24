@@ -12,10 +12,14 @@ const FILTERS = [
   { key: '90s', label: '90s' },
   { key: '2000s', label: '2000s' },
   { key: 'noir', label: 'Noir' },
-  { key: 'fisheye', label: 'Fisheye' },
-  { key: 'rainbow', label: 'Rainbow' },
-  { key: 'glitch', label: 'Glitch' },
   { key: 'crosshatch', label: 'Crosshatch' },
+  { key: 'teal_orange', label: 'Teal & Orange' },
+  { key: 'neo_tokyo', label: 'Neo-Tokyo' },
+  { key: 'bleach_bypass', label: 'Bleach Bypass' },
+  { key: 'sunset_fade', label: 'Sunset Fade' },
+  { key: 'high_drama', label: 'High Drama' },
+  { key: 'muted_earth', label: 'Muted Earth' },
+  { key: 'grayscale_punch', label: 'Grayscale Punch' },
 ];
 
 // Returns Tailwind classes for each filter effect
@@ -27,14 +31,22 @@ function getFilterStyle(filter) {
       return 'saturate-200 contrast-125 brightness-110 hue-rotate-20';
     case 'noir':
       return 'grayscale contrast-150 brightness-75';
-    case 'fisheye':
-      return 'contrast-125 saturate-150'; // Fisheye effect will be handled later
-    case 'rainbow':
-      return 'hue-rotate-90 saturate-200 brightness-110';
-    case 'glitch':
-      return 'hue-rotate-180 saturate-200 contrast-200';
     case 'crosshatch':
       return 'contrast-125 brightness-75 saturate-50';
+    case 'teal_orange':
+      return 'brightness-105 contrast-125 saturate-150 hue-rotate-20';
+    case 'neo_tokyo':
+      return 'brightness-120 contrast-130 saturate-250 hue-rotate-270';
+    case 'bleach_bypass':
+      return 'brightness-110 contrast-150 saturate-30';
+    case 'sunset_fade':
+      return 'brightness-115 contrast-120 saturate-160 hue-rotate-25';
+    case 'high_drama':
+      return 'brightness-100 contrast-150 saturate-200';
+    case 'muted_earth':
+      return 'brightness-95 contrast-130 saturate-50 hue-rotate-30';
+    case 'grayscale_punch':
+      return 'brightness-105 contrast-140 saturate-0';
     default:
       return '';
   }
@@ -142,8 +154,8 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
   return showStrip ? (
     <PhotoStrip photos={photos} onReshoot={handleReshoot} onDownload={handleDownload} />
   ) : (
-    <div className="w-full max-w-md mx-auto flex flex-col items-center gap-6 py-8">
-      <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-cloud flex items-center justify-center">
+    <div className="w-full flex flex-col items-center gap-6 py-8">
+      <div className="relative w-full max-w-md aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-cloud flex items-center justify-center">
         {cameraError ? (
           <div className="text-center text-red-600 p-6">
             <p className="font-bold">Camera Error</p>
@@ -177,9 +189,13 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
       </div>
       {/* Filter Selection */}
       <Tabs value={filter} onValueChange={setFilter} className="w-full">
-        <TabsList>
+        <TabsList className="flex flex-wrap justify-center gap-3 p-3 bg-transparent rounded-xl w-full max-w-2xl mx-auto">
           {FILTERS.map((f) => (
-            <TabsTrigger key={f.key} value={f.key} className="capitalize">
+            <TabsTrigger 
+              key={f.key} 
+              value={f.key} 
+              className="capitalize px-4 py-2 rounded-lg transition-all hover:bg-gray-200 data-[state=active]:bg-primary data-[state=active]:text-white"
+            >
               {f.label}
             </TabsTrigger>
           ))}
@@ -198,4 +214,4 @@ export default function Photobooth({ maxPhotos = 3, showToast }) {
       </Button>
     </div>
   );
-} 
+}
