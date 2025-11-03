@@ -16,7 +16,6 @@ const FILTERS = [
   { key: 'teal_orange', label: 'Teal & Orange' },
   { key: 'neo_tokyo', label: 'Neo-Tokyo' },
   { key: 'bleach_bypass', label: 'Bleach Bypass' },
-  { key: 'sunset_fade', label: 'Sunset Fade' },
   { key: 'high_drama', label: 'High Drama' },
   { key: 'muted_earth', label: 'Muted Earth' },
   { key: 'grayscale_punch', label: 'Grayscale Punch' },
@@ -39,8 +38,6 @@ function getFilterStyle(filter) {
       return 'brightness-120 contrast-130 saturate-250 hue-rotate-270';
     case 'bleach_bypass':
       return 'brightness-110 contrast-150 saturate-30';
-    case 'sunset_fade':
-      return 'brightness-115 contrast-120 saturate-160 hue-rotate-25';
     case 'high_drama':
       return 'brightness-100 contrast-150 saturate-200';
     case 'muted_earth':
